@@ -7,9 +7,11 @@
   "author": "Alexey Taktarov <molefrog@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "babel src --out-dir lib",
+    "build": "babel demo --out-dir lib",
     "dev": "parcel demo/index.html --open",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b gh-pages -d lib"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0",
