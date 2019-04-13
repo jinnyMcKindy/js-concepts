@@ -37,8 +37,13 @@ const PitchDeck = () => (
         Нажмите ➡️ кнопку для прокрутки слайда
       </Footnote>
     </Slide>
-
-    <Slide name="Installing Presa" fade={0.2} centered>
+    <Slide name="Фичи ФП" centered>
+      <H1>Фичи ФП</H1>
+      <div>
+        <img width="500px" height="auto" src={require('./images/char.png')} />
+      </div>
+    </Slide>
+    <Slide name="Чистые функции" fade={0.2} centered>
       <Numbered number={1}>
         <H1>Чистые функции</H1>
         <H3>Признаки чистой функции: </H3>
@@ -51,7 +56,7 @@ const PitchDeck = () => (
         </ul>
       </Numbered>
     </Slide>
-    <Slide name="Slide backgrounds" fade={0.2}>
+    <Slide name="Примеры pure functions" fade={0.2}>
       <H1>Примеры</H1>
       <Code>
         {` 
@@ -69,7 +74,7 @@ function notPure(a){
 `}
       </Code>
     </Slide>
-    <Slide name="Slide backgrounds" fade={0.2}>
+    <Slide name="Returns the same result" fade={0.2}>
       <H1>The same result</H1>
       <Description>
         Функция не чистая, т.к. использует глобальную переменную. Вернет другой
@@ -84,7 +89,7 @@ function notPure(a){
   `}
       </Code>
     </Slide>
-    <Slide name="Slide backgrounds" fade={0.2}>
+    <Slide name="Let's fix it!" fade={0.2}>
       <H1>Let's fix it!</H1>
       <Description>
         Передаем PI в качестве аргумента. Теперь у функции нет сайд эффектов, а
@@ -102,7 +107,7 @@ calculateArea(10, PI); // returns 314.0
         программировании
       </p>
     </Slide>
-    <Slide>
+    <Slide name="Преимущества чистых функций">
       <H1>Преимущества чистых функций</H1>
       <PresaSlogan>
         Чистые функции стабильны, согласованны и предсказуемы
@@ -117,7 +122,7 @@ calculateArea(10, PI); // returns 314.0
       </ul>
       <Image width="350" src={require('./images/char.png')} />
     </Slide>
-    <Slide>
+    <Slide name="Пример чистой функции">
       <p>
         Пример функции, которая получает на вход коллекцию чисел и увеличивает
         каждое число в коллекции
@@ -131,6 +136,7 @@ incrementNumbers(list); // [2, 3, 4, 5, 6]`}
       <img width="600px" src={require('./images/evolve.png')} />
     </Slide>
     <Slide
+      name="Иммутабельность"
       layout={children => (
         <SidebarLayout
           src={require('./images/imm.png')}
@@ -150,8 +156,9 @@ incrementNumbers(list); // [2, 3, 4, 5, 6]`}
       </Description>
     </Slide>
 
-    <Slide>
-      <H1>Циклы</H1>В JS часто используются циклы, которые мутируют данные
+    <Slide name="Циклы">
+      <H1>Императивные циклы</H1>В JS часто используются циклы, которые мутируют
+      данные
       <Code>{`
 var values = [1, 2, 3, 4, 5];
 var sumOfValues = 0;
@@ -164,7 +171,7 @@ sumOfValues // 15
 `}</Code>
       <p>В примере выше изменяется переменная `sumOfValues`</p>
     </Slide>
-    <Slide>
+    <Slide name="Декларативные циклы">
       <PresaSlogan>Как написать иммутабельную итерацию?</PresaSlogan>
       <p>
         {' '}
@@ -184,7 +191,7 @@ list; // [1, 2, 3, 4, 5]
 accumulator; // 0
 `}</Code>
     </Slide>
-    <Slide>
+    <Slide name="Композиция функций">
       <H1>Композиция функций</H1>
       <Description>
         Композиция функций и <i>function chaining</i> оставляет начальный объект
@@ -201,7 +208,7 @@ function slugify(string) {
 slugify(string); // i-will-be-a-url-slug
 `}</Code>
     </Slide>
-    <Slide>
+    <Slide name="Фукнции как объекты первого класса">
       <PresaSlogan>Фукнции как объекты первого класса</PresaSlogan>
       <PresaSlogan>Functions as first-class entities</PresaSlogan>
       <Description>
@@ -222,7 +229,7 @@ slugify(string); // i-will-be-a-url-slug
       </ul>
       <Image width="300" src={require('./images/first.jpeg')} />
     </Slide>
-    <Slide>
+    <Slide name="Фукнции высшего порядка" class="Фукнции высшего порядка">
       <PresaSlogan>Фукнции высшего порядка</PresaSlogan>
       <p>
         Функции высшего порядка используют другие функции в качестве объектов
@@ -243,8 +250,8 @@ slugify(string); // i-will-be-a-url-slug
     highOrder(func)()
     `}</Code>
     </Slide>
-    <Slide>
-      <H1>Filter</H1>
+    <Slide name="Filter">
+      <H1>Imperative filter</H1>
       <PresaSlogan>
         Императивная фильтрация через создание нового массива
       </PresaSlogan>
@@ -258,7 +265,7 @@ for (var i = 0; i < numbers.length; i++) {
 console.log(evenNumbers); // (6) [0, 2, 4, 6, 8, 10]
 `}</Code>
     </Slide>
-    <Slide>
+    <Slide name="Declarative filter">
       <PresaSlogan>
         Декларативное решение через `filter` с использованием функции высшего
         порядка
@@ -277,39 +284,42 @@ let numbers = [10, 9, 8, 2, 7, 5, 1, 3, 0];
 filterArray(3, numbers); // [2, 1, 0]
 `}</Code>
     </Slide>
-    <Slide>
-      <H1 />
+    <Slide name="map">
+      <H1>Map</H1>
       <PresaSlogan>
         Map - применяет колбек ко всем элементам коллекции и возвращает новую
         коллекцию
       </PresaSlogan>
       <p>Декларативно</p>
       <Code>{`
+const people = [{name: "Ivan", age: 25},
+               {name: "Oleg", age: 50}]
 const makeSentence = (person) => \`$\{person.name\} 
 is $\{person.age\} years old\`;
 const peopleSentences = (people) => people.map(makeSentence);
-peopleSentences(people);
+peopleSentences(people); //Ivan is 25 years old
 `}</Code>
     </Slide>
-    <Slide>
+    <Slide name="Reduce">
       <H1>Reduce</H1>
       <PresaSlogan>
-        Reduce - в фукнцию передается функция и коллекция и возвращается
-        коллекция из скомбинерованных значений
+        Reduce - возвращает коллекцию из скомбинерованных значений
       </PresaSlogan>
-      <Code>{`
-let shoppingCart = [
+      <Code>{`let shoppingCart = [
   { productTitle: "Product 1", amount: 10 },
   { productTitle: "Product 2", amount: 30 },
   { productTitle: "Product 3", amount: 20 },
   { productTitle: "Product 4", amount: 60 }
 ];
-const sumAmount = (currentTotalAmount, order) => currentTotalAmount + order.amount;
-const getTotalAmount = (shoppingCart) => shoppingCart.reduce(sumAmount, 0);
+const sumAmount = (currentTotalAmount, order) => currentTotalAmount 
++ order.amount;
+const getTotalAmount = (shoppingCart) => 
+shoppingCart.reduce(sumAmount, 0);
 getTotalAmount(shoppingCart); // 120
   `}</Code>
     </Slide>
     <Slide
+      name="The end"
       layout={children => (
         <SidebarLayout
           src={require('./images/func.jpeg')}
