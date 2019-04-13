@@ -16,177 +16,317 @@ const primaryColor = '#3c59ff'
 const PitchDeck = () => (
   <Presentation name="Presa pitch deck" theme={{ textColor: baseTextColor }}>
     <Slide
-      name="What is Presa?"
+      name="FP на JavaScript"
       layout={children => (
         <SidebarLayout
-          src={require('./images/conference.jpg')}
+          src={require('./images/lambda.jpg')}
           proportion="6/9"
           children={children}
         />
       )}
     >
-      <PresaTitle>Presa</PresaTitle>
+      <PresaTitle>Принципы ФП в JavaScript</PresaTitle>
       <PresaSlogan>
-        Create slides in <b>React</b>, present with joy! <br />Built with
-        styled-components 💅
+        Функциональное программирование - это парадигма программирования, стиль
+        построения структуры и элементов компьютерных программ, который
+        интерпретируют вычисления в виде математических функций, избегает
+        мутации данных и изменения стейта 💅
       </PresaSlogan>
-
-      <p>
-        Presa is lightweight, declarative and modular. Each slide is a React
-        component: only rendered when visible.
-      </p>
-
-      <StarOnGithub>
-        <GithubButton repo="presa" user="molefrog" />
-      </StarOnGithub>
-
       <Footnote>
         —<br />
-        Press the ➡️ button on your keyboard to go to the next slide or use
-        controls below.
+        Нажмите ➡️ кнопку для прокрутки слайда
       </Footnote>
     </Slide>
 
     <Slide name="Installing Presa" fade={0.2} centered>
       <Numbered number={1}>
-        <H1>Quick Start</H1>
-        <H3>creating your first presentation in 10 seconds</H3>
-
-        <Description>
-          Install Presa in your project by running{' '}
-          <InlineCode>yarn add presa</InlineCode> command.<br /> You'll need to
-          install <InlineCode>react</InlineCode> and{' '}
-          <InlineCode>styled-components</InlineCode> as well.
-        </Description>
+        <H1>Чистые функции</H1>
+        <H3>Признаки чистой функции: </H3>
+        <ul>
+          <li>
+            Возвращает один и тот же результат при передаче одних и тех же
+            аргументов (детерминированность)
+          </li>
+          <li>Не порождает side-effects</li>
+        </ul>
       </Numbered>
     </Slide>
-
-    <Slide name="Getting started: code" centered>
-      <Code>{`import { Presentation, Slide } from 'presa'
-
-const App = () =>
-  <Presentation name="Lightning talk">
-    <Slide name="Introduction">
-      Hello, everyone!
+    <Slide name="Slide backgrounds" fade={0.2}>
+      <H1>Примеры</H1>
+      <Code>
+        {` 
+function pure(a){
+  return a+2; //pure function
+}
+let f = 0;
+function notPure(a){
+  f++; //has side effects
+  return a; 
+}
+function notPure(a){
+  return Math.random(); //returns different result
+}
+`}
+      </Code>
     </Slide>
-
-    {/* Add your own slides here */}
-  </Presentation>
-
-// Make sure you render into a full-page container
-ReactDOM.render(<App />, container)`}</Code>
+    <Slide name="Slide backgrounds" fade={0.2}>
+      <H1>The same result</H1>
+      <Description>
+        Функция не чистая, т.к. использует глобальную переменную. Вернет другой
+        результат при одинаковых аргументах, если глобальная переменная
+        изменится
+      </Description>
+      <Code>
+        {` 
+  let PI = 3.14;
+  const calculateArea = (radius) => radius * radius * PI;
+  calculateArea(10); // returns 314.0
+  `}
+      </Code>
     </Slide>
-
+    <Slide name="Slide backgrounds" fade={0.2}>
+      <H1>Let's fix it!</H1>
+      <Description>
+        Передаем PI в качестве аргумента. Теперь у функции нет сайд эффектов, а
+        результат всегда одинаков для одинаковых аргументов.
+      </Description>
+      <Code>
+        {` 
+let PI = 3.14;
+const calculateArea = (radius, pi) => radius * radius * pi;
+calculateArea(10, PI); // returns 314.0
+  `}
+      </Code>
+      <p>
+        <b>Вывод</b>: мутабельность не поощряется в функциональном
+        программировании
+      </p>
+    </Slide>
+    <Slide>
+      <H1>Преимущества чистых функций</H1>
+      <PresaSlogan>
+        Чистые функции стабильны, согласованны и предсказуемы
+      </PresaSlogan>
+      <Description>
+        Код становится тестируемым. Не надо мокать функции. Можно тестировать
+        чистые функции с разным контекстом
+      </Description>
+      <ul>
+        <li>Given a parameter A → expect the function to return value B</li>
+        <li>Given a parameter C → expect the function to return value D</li>
+      </ul>
+      <Image width="350" src={require('./images/char.png')} />
+    </Slide>
+    <Slide>
+      <p>
+        Пример функции, которая получает на вход коллекцию чисел и увеличивает
+        каждое число в коллекции
+      </p>
+      <Code>
+        {` 
+let list = [1, 2, 3, 4, 5];
+const incrementNumbers = (list) => list.map(number => number + 1);
+incrementNumbers(list); // [2, 3, 4, 5, 6]`}
+      </Code>
+      <img width="600px" src={require('./images/evolve.png')} />
+    </Slide>
     <Slide
-      name="Slide Backgrounds"
-      background={require('./images/camera.jpg')}
-      fade={0.2}
-      centered
-    >
-      <Numbered inverse number={2}>
-        <H1>Slide Backgrounds</H1>
-        <H3>
-          Presa supports images, colors and custom elements <br />
-          as slide backgrounds
-        </H3>
-      </Numbered>
-    </Slide>
-
-    <Slide name="Slide backgrounds: code" centered>
-      <Code>{`// Use an image
-<Slide background="hello.jpg" />
-
-// Add an overlay
-<Slide background="hello.jpg" fade={0.5} />
-
-// Or custom CSS prop
-<Slide background=
-  "linear-gradient(to right, #da4453, #89216b)" />`}</Code>
-    </Slide>
-
-    <Slide
-      name="Video backgrounds"
-      background={
-        <VideoBackground
-          mute
-          src="https://www.youtube.com/watch?v=6qGiXY1SB68"
-        />
-      }
-      fade={0.2}
-      centered
-    >
-      <Numbered inverse number={3}>
-        <H1>Video Backgrounds</H1>
-        <H3>made with custom background elements</H3>
-      </Numbered>
-    </Slide>
-
-    <Slide name="Video backgrounds: code" centered>
-      <Code>{`// blocks are optional elements
-import { VideoBackground } from 'presa/blocks'
-
-// \`background\` accepts any valid React element —
-// allows to use custom backgrounds.
-<Slide background={
-  <VideoBackground src="..." />
-} />
-
-// (you can pass YouTube link or link to a local file)`}</Code>
-    </Slide>
-
-    <Slide
-      name="Blocks"
-      fade={0.3}
       layout={children => (
         <SidebarLayout
-          src={require('./images/stairs.jpg')}
-          proportion="2/3"
+          src={require('./images/imm.png')}
+          proportion="6/9"
           children={children}
         />
       )}
     >
-      <Numbered number={4}>
-        <H1>Including Blocks</H1>
-        <H3>Reusable components for your slides</H3>
-
-        <Description>
-          Presa ships with additional components that can be used in slides.
-          These components are not added by default.
-        </Description>
-
-        <Description>
-          Currently available blocks: <InlineCode>{'H1'}</InlineCode>,{' '}
-          <InlineCode>{'H2'}</InlineCode>, <InlineCode>{'H3'}</InlineCode>,{' '}
-          <InlineCode>{'Code'}</InlineCode>
-        </Description>
-      </Numbered>
+      <H1>Иммутабельность</H1>
+      <PresaSlogan>
+        Неизменяемость со временем или не способность измениться
+      </PresaSlogan>
+      <Description>
+        Если данные иммутабельны, то их стейт не может измениться после
+        создания. Если вы хотите изменить иммутабельный объект - то это
+        невозможно. Вместо этого создается новый объект с новым значением.
+      </Description>
     </Slide>
 
-    <Slide name="Code block" centered>
-      <Code>{`import { H1, H2, Code } from 'presa/blocks'
+    <Slide>
+      <H1>Циклы</H1>В JS часто используются циклы, которые мутируют данные
+      <Code>{`
+var values = [1, 2, 3, 4, 5];
+var sumOfValues = 0;
 
-<Slide>
-  <H1>JavaScript</H1>
-  <H2 color="pink">A beginner's guide</H2>
+for (var i = 0; i < values.length; i++) {
+  sumOfValues += values[i];
+}
 
-  <Code language="ruby">
-    {\'Object.new.tap(&:inspect);\'}
-  </Code>
-</Slide>
-        `}</Code>
+sumOfValues // 15
+`}</Code>
+      <p>В примере выше изменяется переменная `sumOfValues`</p>
     </Slide>
+    <Slide>
+      <PresaSlogan>Как написать иммутабельную итерацию?</PresaSlogan>
+      <p>
+        {' '}
+        С рекурсией перменные остаются иммутабельны. `list` and `the
+        accumulator` не меняются.
+      </p>
+      <Code>{`let list = [1, 2, 3, 4, 5];
+let accumulator = 0;
+function sum(list, accumulator) {
+  if (list.length == 0) {
+    return accumulator;
+  }
+  return sum(list.slice(1), accumulator + list[0]);
+}
+sum(list, accumulator); // 15
+list; // [1, 2, 3, 4, 5]
+accumulator; // 0
+`}</Code>
+    </Slide>
+    <Slide>
+      <H1>Композиция функций</H1>
+      <Description>
+        Композиция функций и <i>function chaining</i> оставляет начальный объект
+        неизменным Результат функции используется, как инпут в следующей функции
+        не модифицируя <i>original input</i>
+      </Description>
+      <Code>{`let string = " I will be a url slug   ";
+function slugify(string) {
+  return string.toLowerCase()
+    .trim()
+    .split(" ")
+    .join("-");
+}
+slugify(string); // i-will-be-a-url-slug
+`}</Code>
+    </Slide>
+    <Slide>
+      <PresaSlogan>Фукнции как объекты первого класса</PresaSlogan>
+      <PresaSlogan>Functions as first-class entities</PresaSlogan>
+      <Description>
+        <p>
+          Иммутабельность + чистые функции позволяют кэшировать (запоминать)
+          результат.
+        </p>
+        <p>
+          Идея использования функций, как объектов первого класса, заключается в
+          передачи их, как знечений, и использовании в качестве данных
+        </p>
+      </Description>
+      Возможности функций, как объектов первого класса:
+      <ul>
+        <li>К ним можно обращаться как к константам или переменным</li>
+        <li>Могут возвращаться, как результат, из других функций</li>
+        <li>Передаваться в качестве параметра другим функциям</li>
+      </ul>
+      <Image width="300" src={require('./images/first.jpeg')} />
+    </Slide>
+    <Slide>
+      <PresaSlogan>Фукнции высшего порядка</PresaSlogan>
+      <p>
+        Функции высшего порядка используют другие функции в качестве объектов
+        первого класса.
+      </p>
+      <p>Функции высшего порядка может: </p>
+      <ul>
+        <li>Принимают функции в качестве аргументов</li>
+        <li>Возвращают функцию, как результат</li>
+      </ul>
+      <Code>{`
+    let func = () => 2;
+    function highOrder(func){
+      return function(){
+        return func()+2;
+      }
+    }
+    highOrder(func)()
+    `}</Code>
+    </Slide>
+    <Slide>
+      <H1>Filter</H1>
+      <PresaSlogan>
+        Императивная фильтрация через создание нового массива
+      </PresaSlogan>
+      <Code>{`var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var evenNumbers = [];
+for (var i = 0; i < numbers.length; i++) {
+  if (numbers[i] % 2 == 0) {
+    evenNumbers.push(numbers[i]);
+  }
+}
+console.log(evenNumbers); // (6) [0, 2, 4, 6, 8, 10]
+`}</Code>
+    </Slide>
+    <Slide>
+      <PresaSlogan>
+        Декларативное решение через `filter` с использованием функции высшего
+        порядка
+      </PresaSlogan>
+      <Code>{`
+const even = n => n % 2 == 0;
+const listOfNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+listOfNumbers.filter(even); // [0, 2, 4, 6, 8, 10]
+function smaller(number) {
+  return number < this;
+}
+function filterArray(x, listOfNumbers) {
+  return listOfNumbers.filter(smaller, x);
+}
+let numbers = [10, 9, 8, 2, 7, 5, 1, 3, 0];
+filterArray(3, numbers); // [2, 1, 0]
+`}</Code>
+    </Slide>
+    <Slide>
+      <H1 />
+      <PresaSlogan>
+        Map - применяет колбек ко всем элементам коллекции и возвращает новую
+        коллекцию
+      </PresaSlogan>
+      <p>Декларативно</p>
+      <Code>{`
+const makeSentence = (person) => \`$\{person.name\} 
+is $\{person.age\} years old\`;
+const peopleSentences = (people) => people.map(makeSentence);
+peopleSentences(people);
+`}</Code>
+    </Slide>
+    <Slide>
+      <H1>Reduce</H1>
+      <PresaSlogan>
+        Reduce - в фукнцию передается функция и коллекция и возвращается
+        коллекция из скомбинерованных значений
+      </PresaSlogan>
+      <Code>{`
+let shoppingCart = [
+  { productTitle: "Product 1", amount: 10 },
+  { productTitle: "Product 2", amount: 30 },
+  { productTitle: "Product 3", amount: 20 },
+  { productTitle: "Product 4", amount: 60 }
+];
+const sumAmount = (currentTotalAmount, order) => currentTotalAmount + order.amount;
+const getTotalAmount = (shoppingCart) => shoppingCart.reduce(sumAmount, 0);
+getTotalAmount(shoppingCart); // 120
+  `}</Code>
+    </Slide>
+    <Slide
+      layout={children => (
+        <SidebarLayout
+          src={require('./images/func.jpeg')}
+          proportion="9/9"
+          children={children}
+        />
+      )}
+      centered
+    >
+      <H1>Thanks!</H1>
 
-    <Slide name="Support us!" centered>
-      <Presa />
-      <H3>Check out more</H3>
-      <p>Let us know if you want to use Presa for your talk!</p>
-      <a href="https://github.com/molefrog/presa">
-        https://github.com/molefrog/presa
-      </a>
+      <Footnote>
+        Powered by <a href="https://github.com/molefrog/presa">Presa</a>
+      </Footnote>
     </Slide>
   </Presentation>
 )
-
 const NumberedNumber = styled.div`
   width: 50px;
   height: 50px;
@@ -240,7 +380,12 @@ const PresaSlogan = styled(H3)`
   color: #444;
   margin-bottom: 40px;
 `
-
+const Image = styled.img`
+  max-width: ${props => props.width}px;
+  float: right;
+  margin-top: -150;
+  margin-right: -100px;
+`
 const StarOnGithub = styled.div`
   margin-top: 20px;
   margin-bottom: 90px;
