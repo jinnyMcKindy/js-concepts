@@ -5,3 +5,5 @@ Source: [Medium](https://medium.freecodecamp.org/functional-programming-principl
 Translated: Julia K.
 <br>
 Powered with [Presa ](https://github.com/molefrog/presa)
+[Demo](https://volokolamskspb.github.io/js-concepts/)
+
