@@ -7,10 +7,9 @@
   "author": "Alexey Taktarov <molefrog@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "babel demo --out-dir lib",
     "dev": "parcel demo/index.html --open",
     "precommit": "lint-staged",
-    "predeploy": "rm -rf dist && parcel build  demo/index.html --public--url /js-concepts",
+    "predeploy": "rm -rf dist && parcel build  demo/index.html --public-url '/js-concepts' ",
     "deploy": "gh-pages -d dist"
   },
   "peerDependencies": {
