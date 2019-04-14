@@ -227,7 +227,7 @@ slugify(string); // i-will-be-a-url-slug
         <li>Могут возвращаться, как результат, из других функций</li>
         <li>Передаваться в качестве параметра другим функциям</li>
       </ul>
-      <Image width="300" src={require('./images/first.jpeg')} />
+      <Image width="250" src={require('./images/first.jpeg')} />
     </Slide>
     <Slide name="Фукнции высшего порядка" class="Фукнции высшего порядка">
       <PresaSlogan>Фукнции высшего порядка</PresaSlogan>
@@ -303,7 +303,7 @@ peopleSentences(people); //Ivan is 25 years old
     <Slide name="Reduce">
       <H1>Reduce</H1>
       <PresaSlogan>
-        Reduce - возвращает коллекцию из скомбинерованных значений
+        Reduce - возвращает коллекцию из скомбинированных значений
       </PresaSlogan>
       <Code>{`let shoppingCart = [
   { productTitle: "Product 1", amount: 10 },
