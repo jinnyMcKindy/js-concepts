@@ -6,5 +6,5 @@ Translated: Julia K.
 
 Powered with [Presa ](https://github.com/molefrog/presa)
 
-[Demo][https://jinnymckindy.github.io/js-concepts/]
+[Demo](https://jinnymckindy.github.io/js-concepts/)
 
